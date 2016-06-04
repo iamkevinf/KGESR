@@ -10,9 +10,14 @@ public:
 
     float x, y, z, w;
 
+    const float* getArray()const{ return _array; }
+
     Vector4 operator + (const Vector4 & rhs) const;
     Vector4 operator - (const Vector4 & rhs) const;
     Vector4 operator * (float k) const;
+
+private:
+    float _array[4];
 };
 
 

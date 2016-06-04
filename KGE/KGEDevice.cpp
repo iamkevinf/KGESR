@@ -35,9 +35,9 @@ namespace KGE
 
     void KGEDevice::DrawPoint(HDC hdc, int x, int y, const Vector4 & color)
     {
-        int r_clamp = max(0, min(1, color.x)) * 255;
-        int g_clamp = max(0, min(1, color.y)) * 255;
-        int b_clamp = max(0, min(1, color.z)) * 255;
+        int r_clamp = max(0, min(1, (int)color.x)) * 255;
+        int g_clamp = max(0, min(1, (int)color.y)) * 255;
+        int b_clamp = max(0, min(1, (int)color.z)) * 255;
 
         ::SetPixel(hdc, x, y, RGB(r_clamp, g_clamp, b_clamp));
     }

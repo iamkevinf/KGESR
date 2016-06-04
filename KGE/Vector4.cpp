@@ -13,7 +13,10 @@ y(_y),
 z(_z),
 w(_w)
 {
-
+    _array[0] = x;
+    _array[1] = y;
+    _array[2] = z;
+    _array[3] = w;
 }
 
 
