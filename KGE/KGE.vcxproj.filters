@@ -16,6 +16,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{3e2ca546-2a65-49f0-9710-66f7dc054e72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KGESR">
+      <UniqueIdentifier>{275aee82-2f1e-4296-9264-a89b2cfabe93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -36,16 +39,19 @@
     <ClInclude Include="util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KGEDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vector4.h">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="KGEMath.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Materix.h">
+    <ClInclude Include="KGEDevice.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
+    <ClInclude Include="KGECamera.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,13 +65,16 @@
     <ClCompile Include="util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KGEDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vector4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Materix.cpp">
+    <ClCompile Include="KGEDevice.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="KGECamera.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
       <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>

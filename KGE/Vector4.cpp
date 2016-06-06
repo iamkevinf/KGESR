@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Vector4.h"
 
+#include <math.h>
+
+#include <assert.h>
 
 Vector4::Vector4() : Vector4(0, 0, 0, 0)
 {
@@ -40,4 +43,62 @@ Vector4 Vector4::operator*(float k)const
     return Vector4(x*k, y*k, z*k, w*k);
 }
 
+void Vector4::normalized()
+{
+    float r2 = x*x + y*y + z*z;
+    if (r2 == 0)
+    {
+        x = y = z = w = 0;
+        _array[0] = x;
+        _array[1] = y;
+        _array[2] = z;
+        _array[3] = w;
+    }
+    else
+    {
+        float r = r2*r2;
+
+        x = x / r;
+        y = y / r;
+        z = z / r;
+        w = 0;
+    }
+
+    _array[0] = x;
+    _array[1] = y;
+    _array[2] = z;
+    _array[3] = w;
+}
+
+float Vector4::distance()
+{
+    assert(w == 0);
+    
+    return sqrtf(x*x + y*y + z*z);
+}
+
+float Vector4::distanceSqr()
+{
+    assert(w == 0);
+
+    return x*x + y*y + z*z;
+}
+
+Vector4 cross(const Vector4 & lhs, const Vector4 & rhs)
+{
+    assert(lhs.w == 0);
+    assert(rhs.w == 0);
+
+    return Vector4(
+        lhs.y*rhs.z - lhs.z*rhs.y,
+        lhs.z*rhs.x - lhs.z*rhs.z,
+        lhs.x*rhs.y - lhs.y*rhs.z,
+        0
+        );
+}
+
+float dot(const Vector4 & lhs, const Vector4 & rhs)
+{
+    return lhs.x*rhs.x + lhs.y*rhs.y + lhs.z*rhs.z;
+}
 

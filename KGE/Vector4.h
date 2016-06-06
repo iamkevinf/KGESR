@@ -16,10 +16,17 @@ public:
     Vector4 operator - (const Vector4 & rhs) const;
     Vector4 operator * (float k) const;
 
+    void normalized();
+
+    float distance();
+    float distanceSqr();
+
 private:
     float _array[4];
 };
 
+Vector4 cross(const Vector4 & lhs, const Vector4 & rhs);
+float dot(const Vector4 & lhs, const Vector4 & rhs);
 
 #endif // __KGE_VECTOR4_H__
 
