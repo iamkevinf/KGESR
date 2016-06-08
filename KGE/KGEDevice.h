@@ -25,6 +25,11 @@ namespace KGE
         void DrawPoint(HDC hdc, int x, int y, const Vector4 & color);
         // draw a line with DDA
         void DrawLine(HDC hdc, int x, int y, int xEnd, int yEnd, const Vector4 & color);
+        void DrawTriangle(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
+        /// 平顶三角形
+        void _DrawTriangle_flat(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
+        /// 平底三角形
+        void _DrawTriangle_loafer(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
 
         void Clear(HDC hdc, const Vector4 & viewpoint, DWORD color);
         void Present(HDC hdc, HDC hdcSrc, const Vector4 & viewpoint);
