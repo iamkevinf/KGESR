@@ -33,6 +33,10 @@ namespace KGE
         viewport = _viewport;
     }
 
+    ////////////////////////////////////////////////////////
+    /// draw Primitive
+    ////////////////////////////////////////////////////////
+
     void KGEDevice::DrawPoint(HDC hdc, int x, int y, const Vector4 & color)
     {
         int r_clamp = max(0, min(1, (int)color.x)) * 255;
@@ -164,6 +168,45 @@ namespace KGE
             }
         }
     }
+
+    ////////////////////////////////////////////////////////
+    /// zBuffer
+    ////////////////////////////////////////////////////////
+
+    void KGEDevice::ZBufferClear()
+    {
+        const float clearValue = 1;
+        int zBufferSize = (int)_viewport.z * (int)_viewport.w;
+
+        for (int i = 0; i < zBufferSize; ++i)
+        {
+            _zBuffer[i] = clearValue;
+        }
+    }
+
+    double KGEDevice::ZBufferRead(int x, int y)
+    {
+        const int w = (int)_viewport.z;
+        const int h = (int)_viewport.w;
+
+        if (x >= 0 && x < w && y >= 0 && y < h)
+            return _zBuffer[y * w + x];
+        else
+            return 1;
+    }
+
+    void KGEDevice::ZBufferWrite(int x, int y, double value)
+    {
+        const int w = (int)_viewport.z;
+        const int h = (int)_viewport.w;
+
+        if (x >= 0 && x < w && y >= 0 && y < h)
+            _zBuffer[y * w + x] = value;
+    }
+
+    ////////////////////////////////////////////////////////
+    /// Rasterization
+    ////////////////////////////////////////////////////////
 
     void KGEDevice::Clear(HDC hdc, const Vector4 & viewport, DWORD color)
     {

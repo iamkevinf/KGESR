@@ -38,12 +38,17 @@ namespace KGE
 
         void SoftRasterization(HDC hdc);
 
+        void ZBufferWrite(int x, int y, double value);
+        double ZBufferRead(int x, int y);
+        void ZBufferClear();
+
     protected:
         void SoftRasterization_solid(HDC hdc);
         void SoftRasterization_edge(HDC hdc);
 
     private:
         Vector4 _viewport;
+        double * _zBuffer;
 
         bool _isInited;
     };
