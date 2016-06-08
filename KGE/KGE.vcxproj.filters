@@ -54,6 +54,21 @@
     <ClInclude Include="Matrix.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="KGEVertexBuffer.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
+    <ClInclude Include="KGEVertex.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="KGEMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KGETriangle.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,6 +91,21 @@
     </ClCompile>
     <ClCompile Include="Matrix.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="KGEVertexBuffer.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="KGEVertex.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="KGEMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KGETriangle.cpp">
+      <Filter>KGESR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

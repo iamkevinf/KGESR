@@ -96,12 +96,15 @@ Matrix Matrix::operator*(const Matrix & rhs)const
 Matrix Matrix::operator*(const Vector4 & v)const
 {
     const float *m = this->getArray();
-    const float *vin = v.getArray();
+    const float vinx = v.x;
+    const float viny = v.y;
+    const float vinz = v.z;
+    const float vinw = v.w;
     float vout[4];
-    vout[0] = vin[0] * m[0] + vin[1] * m[4] + vin[2] * m[8] + vin[3] * m[12];
-    vout[1] = vin[0] * m[1] + vin[1] * m[5] + vin[2] * m[9] + vin[3] * m[13];
-    vout[2] = vin[0] * m[2] + vin[1] * m[6] + vin[2] * m[10] + vin[3] * m[14];
-    vout[3] = vin[0] * m[3] + vin[1] * m[7] + vin[2] * m[11] + vin[3] * m[15];
+    vout[0] = vinx * m[0] + viny * m[4] + vinz * m[8] + vinw * m[12];
+    vout[1] = vinx * m[1] + viny * m[5] + vinz * m[9] + vinw * m[13];
+    vout[2] = vinx * m[2] + viny * m[6] + vinz * m[10] + vinw * m[14];
+    vout[3] = vinx * m[3] + viny * m[7] + vinz * m[11] + vinw * m[15];
     return Matrix(vout);
 }
 

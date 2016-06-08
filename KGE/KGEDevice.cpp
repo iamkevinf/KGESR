@@ -2,13 +2,16 @@
 #include "KGEDevice.h"
 
 #include "KGEMath.h"
+#include "KGEMesh.h"
+#include "KGEVertex.h"
 
 namespace KGE
 {
     KGEDevice::KGEDevice()
         :_isInited(false)
     {
-
+        _mesh = new KGEMesh();
+        _mesh->LoadFromFile("res/ASEModels/teaport.ASE");
     }
 
     KGEDevice::~KGEDevice()
@@ -73,6 +76,9 @@ namespace KGE
     {
         for (int y = y1; y <= y2; ++y)
         {
+            if (y2 == y1 || y3 == y1)
+                continue;
+
             int xs = (y - y1) * (x2 - x1) / (y2 - y1) + x1 + 0.5f;
             int xe = (y - y1) * (x3 - x1) / (y3 - y1) + x1 + 0.5f;
 
@@ -84,6 +90,9 @@ namespace KGE
     {
         for (int y = y1; y <= y3; ++y)
         {
+            if (x3 == x1 || y3 == y1)
+                continue;
+
             int xs = (y - y1) * (x3 - x1) / (y3 - y1) + x1 + 0.5f;
             int xe = (y - y2) * (x3 - x2) / (y3 - y2) + x2 + 0.5f;
 
@@ -145,13 +154,13 @@ namespace KGE
             {
                 xtop = x3; ytop = y3;
                 xmiddle = x1; ymiddle = y1;
-                xbottom = x2; ybottom = x3;
+                xbottom = x2; ybottom = y2;
             }
             else if (y3 < y2 && y2 < y1)
             {
                 xtop = x3; ytop = y3;
                 xmiddle = x2; ymiddle = y2;
-                xbottom = x1; ybottom = x1;
+                xbottom = x1; ybottom = y1;
             }
 
             int xl = (ymiddle - ytop) * (xbottom - xtop) / (ybottom - ytop) + xtop + 0.5f;
@@ -220,9 +229,27 @@ namespace KGE
 
     void KGEDevice::SoftRasterization(HDC hdc)
     {
+        /// TODO
+        /// for test hard code
         DrawPoint(hdc, 100, 100, Vector4(1, 0, 0, 1));
         DrawLine(hdc, 200, 247, 300, 405, Vector4(1, 0, 0, 1));
-        DrawTriangle(hdc, 500, 500, 400, 600, 700, 700, Vector4(1, 0, 0, 1));
+        DrawTriangle(hdc, 500, 200, 400, 300, 700, 400, Vector4(0, 1, 0, 1));
+
+        int nIDtri = (int)_mesh->triList.size();
+        for (int i = 0; i<nIDtri; i++){
+            const KGETriangle & IDtri = _mesh->triList[i];
+            const int vID0 = IDtri.vID(0);
+            const int vID1 = IDtri.vID(1);
+            const int vID2 = IDtri.vID(2);
+            if (vID0 == -1)continue;
+            KGEVertex v0, v1, v2;
+            v0 = _mesh->GetVertex(vID0);
+            v1 = _mesh->GetVertex(vID1);
+            v2 = _mesh->GetVertex(vID2);
+
+            DrawTriangle(hdc, 100 + v0.pos.x, 100 + v0.pos.y, 100 + v1.pos.x, 100 + v1.pos.y, 100 + v2.pos.x, 100 + v2.pos.y, v0.color);
+        }
+        /// end test hard code
     }
 
     void KGEDevice::SoftRasterization_solid(HDC hdc)

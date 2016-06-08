@@ -16,10 +16,6 @@ y(_y),
 z(_z),
 w(_w)
 {
-    _array[0] = x;
-    _array[1] = y;
-    _array[2] = z;
-    _array[3] = w;
 }
 
 
@@ -43,16 +39,23 @@ Vector4 Vector4::operator*(float k)const
     return Vector4(x*k, y*k, z*k, w*k);
 }
 
+void Vector4::persDiv()
+{
+    if (w == 0)
+        return;
+
+    x /= w;
+    y /= w;
+    z /= w;
+    w = 1;
+}
+
 void Vector4::normalized()
 {
     float r2 = x*x + y*y + z*z;
     if (r2 == 0)
     {
         x = y = z = w = 0;
-        _array[0] = x;
-        _array[1] = y;
-        _array[2] = z;
-        _array[3] = w;
     }
     else
     {
@@ -63,11 +66,6 @@ void Vector4::normalized()
         z = z / r;
         w = 0;
     }
-
-    _array[0] = x;
-    _array[1] = y;
-    _array[2] = z;
-    _array[3] = w;
 }
 
 float Vector4::distance()

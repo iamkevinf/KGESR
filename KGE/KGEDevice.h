@@ -2,6 +2,7 @@
 #define __KGE_DEVICE_H__
 
 #include "KGEMath.h"
+#include "KGEMesh.h"
 
 namespace KGE
 {
@@ -51,6 +52,8 @@ namespace KGE
         double * _zBuffer;
 
         bool _isInited;
+
+        KGEMesh * _mesh;
     };
 
 }; // end of namespace KGE
