@@ -65,6 +65,7 @@ namespace KGE
         if (fp == nullptr)
             return false;
 
+        std::vector<Vector4> posList;
         std::vector<KGETriangle> faceList;
         int materialRef = 0;
         std::vector<KGETriangle> tfaceList;
@@ -193,7 +194,7 @@ namespace KGE
             for (int vertexIndex = 0; vertexIndex < vertexCount; vertexIndex++){
                 fscanStr(fp, "*MESH_VERTEX");    int vID = fscanInt(fp);	Vector4 pos = fscanVector3(fp); pos.w = 1;
                 assert(vertexIndex == vID);
-                positionList.push_back(pos);
+                posList.push_back(pos);
             }
             fscanStr(fp, "}");
 
@@ -297,7 +298,7 @@ namespace KGE
                     const int vID = face.vID(i);
                     const int tvID = tface.vID(i);
                     KGEVertex v;
-                    v.pos = positionList[vID];
+                    v.pos = posList[vID];
                     v.norm;
                     if (i == 0){
                         v.norm = faceV0NormList[faceIndex];

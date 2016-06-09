@@ -32,7 +32,7 @@ namespace KGE
         _viewport = viewport;
 
         _camera = new KGECamera(viewport.z, viewport.w);
-        _camera->init(Vector4(1, 0, 2, 1), Vector4(0, 0, 0, 1), Vector4(0, 1, 0, 0));
+        _camera->init(Vector4(0, 0, 3, 1), Vector4(0, 0, 0, 1), Vector4(0, 1, 0, 0));
 
         ViewportMatrix(viewport, _viewportMat);
 
@@ -116,6 +116,13 @@ namespace KGE
 
             DrawLine(hdc, xs, y, xe, y, color);
         }
+    }
+
+    void KGEDevice::DrawTriangle_Edge(HDC hdc, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color)
+    {
+        DrawLine(hdc, x1, y1, x2, y2, color);
+        DrawLine(hdc, x2, y2, x3, y3, color);
+        DrawLine(hdc, x3, y3, x1, y1, color);
     }
 
     void KGEDevice::DrawTriangle(HDC hdc, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color)
@@ -338,6 +345,7 @@ namespace KGE
     void KGEDevice::SoftRasterization(HDC hdc)
     {
         submitMesh();
+        transformVertexes();
 
         switch (_drawMode)
         {
@@ -354,7 +362,7 @@ namespace KGE
 
         int nIDtri = (int)_transformMesh->triList.size();
         for (int i = 0; i<nIDtri; i++){
-            const KGETriangle & IDtri = _mesh->triList[i];
+            const KGETriangle & IDtri = _transformMesh->triList[i];
             const int vID0 = IDtri.vID(0);
             const int vID1 = IDtri.vID(1);
             const int vID2 = IDtri.vID(2);
@@ -365,6 +373,18 @@ namespace KGE
             v2 = _transformMesh->GetVertex(vID2);
 
             DrawTriangle(hdc, v0.pos.x, v0.pos.y, v1.pos.x, v1.pos.y, v2.pos.x, v2.pos.y, v0.color);
+
+            continue;
+            v0.pos = v0.pos + Vector4(100, 100, 0, 0);
+            v1.pos = v1.pos + Vector4(100, 100, 0, 0);
+            v2.pos = v2.pos + Vector4(100, 100, 0, 0);
+
+            //DrawTriangle_Edge(hdc, v0.pos.x, v0.pos.y, v1.pos.x, v1.pos.y, v2.pos.x, v2.pos.y, v0.color);
+
+            v0.pos = v0.pos + Vector4(100, 100, 0, 0);
+            v1.pos = v1.pos + Vector4(100, 100, 0, 0);
+            v2.pos = v2.pos + Vector4(100, 100, 0, 0);
+
         }
         /// end test hard code
     }

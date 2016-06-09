@@ -59,7 +59,7 @@ void Vector4::normalized()
     }
     else
     {
-        float r = r2*r2;
+        float r = sqrtf(r2);
 
         x = x / r;
         y = y / r;

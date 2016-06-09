@@ -96,15 +96,11 @@ Matrix Matrix::operator*(const Matrix & rhs)const
 Vector4 Matrix::operator*(const Vector4 & v)const
 {
     const float *m = this->getArray();
-    const float vinx = v.x;
-    const float viny = v.y;
-    const float vinz = v.z;
-    const float vinw = v.w;
     float vout[4];
-    vout[0] = vinx * m[0] + viny * m[4] + vinz * m[8] + vinw * m[12];
-    vout[1] = vinx * m[1] + viny * m[5] + vinz * m[9] + vinw * m[13];
-    vout[2] = vinx * m[2] + viny * m[6] + vinz * m[10] + vinw * m[14];
-    vout[3] = vinx * m[3] + viny * m[7] + vinz * m[11] + vinw * m[15];
+    vout[0] = v.x * m[0] + v.y * m[4] + v.z * m[8] + v.w * m[12];
+    vout[1] = v.x * m[1] + v.y * m[5] + v.y * m[9] + v.w * m[13];
+    vout[2] = v.x * m[2] + v.y * m[6] + v.y * m[10] + v.w * m[14];
+    vout[3] = v.x * m[3] + v.y * m[7] + v.y * m[11] + v.w * m[15];
     return Vector4(vout[0], vout[1], vout[2], vout[3]);
 }
 
@@ -123,13 +119,17 @@ Matrix ViewMaterixInverse(const Vector4 & eyePos, const Vector4 & center, const 
 {
     assert(eyePos.w == 1);
     assert(center.w == 1);
-    assert(_up.w == 1);
+    assert(_up.w == 0);
 
     Vector4 forward, right, up;
 
     forward = (center - eyePos);
     forward.normalized();
     up = _up;
+
+
+    side = cross(forward, up);
+    side = normalize(side);
 
     right = cross(forward, up);
     right.normalized();
@@ -154,7 +154,7 @@ Matrix ViewMaterix(const Vector4 & eyePos, const Vector4 & center, const Vector4
 {
     assert(eyePos.w == 1);
     assert(center.w == 1);
-    assert(up.w == 1);
+    assert(up.w == 0);
 
     Matrix viewMatInverse = ViewMaterixInverse(eyePos, center, up);
 

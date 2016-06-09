@@ -6,7 +6,7 @@
 namespace KGE
 {
     KGECamera::KGECamera(float w, float h) :
-        fov(0),
+        fov(60),
         aspect(w/h),
         zNear(0.5f),
         zFar(150),
@@ -42,8 +42,10 @@ namespace KGE
         {
         case ProjectionMode::OrthographicMode:
             mat = OrthoprojectionMatrix(rect.x, rect.y, rect.z, rect.w, zNear, zFar);
+            break;
         case ProjectionMode::PerspectiveMode:
             mat = PrespectiveProjectionMatrix(fov, aspect, zNear, zFar);
+            break;
         default:
             assert(false);
             break;
