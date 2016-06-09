@@ -44,6 +44,8 @@ namespace KGE
         double ZBufferRead(int x, int y);
         void ZBufferClear();
 
+        KGEVertex VertexShaderProgram(const Matrix & mat, const KGECamera * camera, const KGEMaterial * material, const KGEVertex & v);
+
     protected:
         void SoftRasterization_solid(HDC hdc);
         void SoftRasterization_edge(HDC hdc);
