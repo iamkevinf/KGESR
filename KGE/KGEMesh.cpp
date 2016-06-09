@@ -4,6 +4,7 @@
 #include "KGEVertex.h"
 #include "KGETriangle.h"
 #include "KGEMaterial.h"
+#include "KGETexture.h"
 
 #include <assert.h>
 
@@ -55,10 +56,12 @@ namespace KGE
         textureIDList.push_back(vertex.textureID);
     }
 
-    bool KGEMesh::LoadFromFile(const std::string & filename)
+    bool KGEMesh::LoadFromFile(const std::string & filpath, const std::string & filename)
     {
         FILE * fp = nullptr;
-        ::fopen_s(&fp, filename.c_str(), "r");
+        std::string fileFullPath = filpath + "/" + filename;
+
+        ::fopen_s(&fp, fileFullPath.c_str(), "r");
         if (fp == nullptr)
             return false;
 
@@ -272,19 +275,17 @@ namespace KGE
             const int materialIDBase = (int)materialIDList.size();
             const int textureIDBase = (int)textureIDList.size();
             const int materialCount = (int)ambientList.size();
-            for (int materialIndex = 0; materialIndex < materialCount; materialIndex++){
+            for (int materialIndex = 0; materialIndex < materialCount; materialIndex++)
+            {
                 KGEMaterial*material = new KGEMaterial();
                 material->init(ambientList[materialIndex], diffuseList[materialIndex], specularList[materialIndex], shineStrengthList[materialIndex] / shineList[materialIndex]);
                 materialList.push_back(material);
-                Ctexture*texture = new Ctexture();
-                string texFilePath = folderPath + "/" + texFileNameList[materialIndex];
-                bool initTexSucc = texture->initWithFile(texFilePath);
+                KGETexture *texture = new KGETexture();
+                std::string texFilePath = filpath + "/" + texFileNameList[materialIndex];
+                bool initTexSucc = texture->LoadFromFile(texFilePath);
                 assert(initTexSucc);
-                m_textureList.push_back(texture);
-
+                textureList.push_back(texture);
             }
-
-
 
             //----convert mesh
             std::vector<KGEVertex> vList;

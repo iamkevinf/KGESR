@@ -34,7 +34,7 @@ namespace KGE
         ZBufferClear();
 
         _mesh = new KGEMesh();
-        _mesh->LoadFromFile("res/ASEModels/teaport.ASE");
+        _mesh->LoadFromFile("res/ASEModels/", "teaport.ASE");
 
         return true;
     }

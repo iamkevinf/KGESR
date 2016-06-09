@@ -9,6 +9,8 @@
 namespace KGE
 {
     class KGEVertex;
+    class KGEMaterial;
+    class KGETexture;
 
     class KGEMesh
     {
@@ -21,7 +23,7 @@ namespace KGE
         void SetVertex(int index, const KGEVertex & vertex);
         void AddVertex(const KGEVertex & vertex);
 
-        bool LoadFromFile(const std::string & filename);
+        bool LoadFromFile(const std::string & filepath, const std::string & filename);
 
     public:
         std::vector<Vector4> positionList;
@@ -35,6 +37,7 @@ namespace KGE
         std::vector<KGETriangle> triList;
 
         std::vector<KGEMaterial*> materialList;
+        std::vector<KGETexture*> textureList;
     };
 
 }; // end of namespace KGE
