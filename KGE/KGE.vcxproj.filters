@@ -19,6 +19,9 @@
     <Filter Include="KGESR">
       <UniqueIdentifier>{275aee82-2f1e-4296-9264-a89b2cfabe93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{5efd21ab-a7f6-4add-b98d-24e7e42b2105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -34,9 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KGE.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector4.h">
@@ -69,15 +69,21 @@
     <ClInclude Include="KGEMesh.h">
       <Filter>KGESR</Filter>
     </ClInclude>
+    <ClInclude Include="KGEMaterial.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
+    <ClInclude Include="KGETexture.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KGE.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector4.cpp">
@@ -106,6 +112,21 @@
     </ClCompile>
     <ClCompile Include="KGEMesh.cpp">
       <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="KGE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KGEMaterial.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="KGETexture.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

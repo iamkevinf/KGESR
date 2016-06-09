@@ -88,14 +88,17 @@
     <ClInclude Include="KGE.h" />
     <ClInclude Include="KGECamera.h" />
     <ClInclude Include="KGEDevice.h" />
+    <ClInclude Include="KGEMaterial.h" />
     <ClInclude Include="KGEMath.h" />
     <ClInclude Include="KGEMesh.h" />
+    <ClInclude Include="KGETexture.h" />
     <ClInclude Include="KGETriangle.h" />
     <ClInclude Include="KGEVertexBuffer.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector4.h" />
@@ -105,7 +108,9 @@
     <ClCompile Include="KGE.cpp" />
     <ClCompile Include="KGECamera.cpp" />
     <ClCompile Include="KGEDevice.cpp" />
+    <ClCompile Include="KGEMaterial.cpp" />
     <ClCompile Include="KGEMesh.cpp" />
+    <ClCompile Include="KGETexture.cpp" />
     <ClCompile Include="KGETriangle.cpp" />
     <ClCompile Include="KGEVertexBuffer.cpp" />
     <ClCompile Include="Matrix.cpp" />
@@ -113,6 +118,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector4.cpp" />

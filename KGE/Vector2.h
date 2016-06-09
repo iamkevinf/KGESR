@@ -12,7 +12,6 @@ public:
     Vector2 operator-(const Vector2 & rhs)const;
     Vector2 operator*(const Vector2 & rhs)const;
 
-private:
     float x;
     float y;
 };

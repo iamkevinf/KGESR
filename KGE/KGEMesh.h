@@ -33,6 +33,8 @@ namespace KGE
         std::vector<bool> cullBackList;
 
         std::vector<KGETriangle> triList;
+
+        std::vector<KGEMaterial*> materialList;
     };
 
 }; // end of namespace KGE

@@ -3,6 +3,7 @@
 
 #include "KGEVertex.h"
 #include "KGETriangle.h"
+#include "KGEMaterial.h"
 
 #include <assert.h>
 
@@ -272,17 +273,14 @@ namespace KGE
             const int textureIDBase = (int)textureIDList.size();
             const int materialCount = (int)ambientList.size();
             for (int materialIndex = 0; materialIndex < materialCount; materialIndex++){
-                //Cc3dMaterial*material = new Cc3dMaterial();
-                //material->m_ambient = ambientList[materialIndex];
-                //material->m_diffuse = diffuseList[materialIndex];
-                //material->m_shininess = shineStrengthList[materialIndex] / shineList[materialIndex];//i guess it like that, not sure!!!
-                //material->m_specular = specularList[materialIndex];
-                //m_materialList.push_back(material);
-                //Ctexture*texture = new Ctexture();
-                //string texFilePath = folderPath + "/" + texFileNameList[materialIndex];
-                //bool initTexSucc = texture->initWithFile(texFilePath);
-                //assert(initTexSucc);
-                //m_textureList.push_back(texture);
+                KGEMaterial*material = new KGEMaterial();
+                material->init(ambientList[materialIndex], diffuseList[materialIndex], specularList[materialIndex], shineStrengthList[materialIndex] / shineList[materialIndex]);
+                materialList.push_back(material);
+                Ctexture*texture = new Ctexture();
+                string texFilePath = folderPath + "/" + texFileNameList[materialIndex];
+                bool initTexSucc = texture->initWithFile(texFilePath);
+                assert(initTexSucc);
+                m_textureList.push_back(texture);
 
             }
 
