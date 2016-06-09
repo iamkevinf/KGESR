@@ -10,8 +10,7 @@ namespace KGE
     KGEDevice::KGEDevice()
         :_isInited(false)
     {
-        _mesh = new KGEMesh();
-        _mesh->LoadFromFile("res/ASEModels/teaport.ASE");
+
     }
 
     KGEDevice::~KGEDevice()
@@ -27,6 +26,15 @@ namespace KGE
         _isInited = true;
 
         _viewport = viewport;
+
+        _camera = new KGECamera(viewport.z, viewport.w);
+        _camera->init(Vector4(1, 0, 2, 1), Vector4(0, 0, 0, 1), Vector4(0, 1, 0, 0));
+
+        _zBuffer = new double[(int)viewport.z * (int)viewport.w];
+        ZBufferClear();
+
+        _mesh = new KGEMesh();
+        _mesh->LoadFromFile("res/ASEModels/teaport.ASE");
 
         return true;
     }

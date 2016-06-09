@@ -3,6 +3,7 @@
 
 #include "KGEMath.h"
 #include "KGEMesh.h"
+#include "KGECamera.h"
 
 namespace KGE
 {
@@ -54,6 +55,7 @@ namespace KGE
         bool _isInited;
 
         KGEMesh * _mesh;
+        KGECamera * _camera;
     };
 
 }; // end of namespace KGE
