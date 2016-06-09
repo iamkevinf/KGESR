@@ -13,6 +13,7 @@ namespace KGE
     {
         DrawSolid = 0,
         DrawEdge,
+        DrawFull,
 
         DrawModeMax
     };
@@ -30,7 +31,9 @@ namespace KGE
         // draw a line with DDA
         void DrawLine(HDC hdc, int x, int y, int xEnd, int yEnd, const Vector4 & color);
         void DrawTriangle(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
+        void DrawTriangle_Full(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
         void DrawTriangle_Edge(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
+        void DrawTriangle_Solid(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
         /// 平顶三角形
         void _DrawTriangle_flat(HDC, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color);
         /// 平底三角形

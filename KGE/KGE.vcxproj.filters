@@ -84,6 +84,9 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Tool</Filter>
     </ClInclude>
+    <ClInclude Include="Range.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Range.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,9 @@ INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
 KGE::KGEDevice * gDevice = nullptr;
 
+const float g_winWidth = 900 * 0.8;
+const float g_winHeight = 700 * 0.8;
+
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPTSTR    lpCmdLine,
@@ -110,7 +113,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     hInst = hInstance; // Store instance handle in our global variable
 
     hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+        CW_USEDEFAULT, 0, g_winWidth, g_winHeight, NULL, NULL, hInstance, NULL);
 
     if (!hWnd)
     {

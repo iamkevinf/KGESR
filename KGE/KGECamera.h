@@ -42,7 +42,7 @@ namespace KGE
         Vector4 center;
         Vector4 up;
 
-        Vector4 rect;
+        Range rect;
 
     };
 } // end of namespce KGE

@@ -32,10 +32,10 @@ private:
 
 Matrix ViewMaterixInverse(const Vector4 & eyePos, const Vector4 & center, const Vector4 & up);
 Matrix ViewMaterix(const Vector4 & eyePos, const Vector4 & center, const Vector4 & up);
-void ViewportMatrix(const Vector4 & viewport, Matrix & out);
-Matrix MaterixRotation(const Vector4 & axis, float angle);
+Matrix ViewportMatrix(const Vector4 & viewport);
+Matrix MatrixRotation(const Vector4 & axis, float angle);
 Matrix MatrixScale(float x, float y, float z);
-Matrix MaterixTranslate(const Vector4 & translate);
+Matrix MatrixTranslate(const Vector4 & translate);
 
 Matrix PrespectiveProjectionMatrix(float fov, float aspect, float zNear, float zFar);
 Matrix OrthoprojectionMatrix(float left, float right, float bottom, float top, float zNear, float zFar);

@@ -34,7 +34,6 @@ Matrix::Matrix(const float array[16])
 
 Matrix::~Matrix()
 {
-    //delete[] _array;
 }
 
 float Matrix::at(int index)const
@@ -98,9 +97,9 @@ Vector4 Matrix::operator*(const Vector4 & v)const
     const float *m = this->getArray();
     float vout[4];
     vout[0] = v.x * m[0] + v.y * m[4] + v.z * m[8] + v.w * m[12];
-    vout[1] = v.x * m[1] + v.y * m[5] + v.y * m[9] + v.w * m[13];
-    vout[2] = v.x * m[2] + v.y * m[6] + v.y * m[10] + v.w * m[14];
-    vout[3] = v.x * m[3] + v.y * m[7] + v.y * m[11] + v.w * m[15];
+    vout[1] = v.x * m[1] + v.y * m[5] + v.z * m[9] + v.w * m[13];
+    vout[2] = v.x * m[2] + v.y * m[6] + v.z * m[10] + v.w * m[14];
+    vout[3] = v.x * m[3] + v.y * m[7] + v.z * m[11] + v.w * m[15];
     return Vector4(vout[0], vout[1], vout[2], vout[3]);
 }
 
@@ -126,10 +125,6 @@ Matrix ViewMaterixInverse(const Vector4 & eyePos, const Vector4 & center, const 
     forward = (center - eyePos);
     forward.normalized();
     up = _up;
-
-
-    side = cross(forward, up);
-    side = normalize(side);
 
     right = cross(forward, up);
     right.normalized();
@@ -175,17 +170,20 @@ Matrix ViewMaterix(const Vector4 & eyePos, const Vector4 & center, const Vector4
     return Matrix(m);
 }
 
-void ViewportMatrix(const Vector4 & viewport, Matrix & out)
+Matrix ViewportMatrix(const Vector4 & viewport)
 {
-    out = Matrix(
-        viewport.z / 2, 0, 0, 0,
-        0, viewport.w / 2, 0, 0,
-        0, 0, 0.5f, 0,
-        viewport.x+viewport.z/2, viewport.y+viewport.w/2, 0.5f, 1
-        );
+    const float vx = viewport.x;
+    const float vy = viewport.y;
+    const float w = viewport.z;
+    const float h = viewport.w;
+    Matrix viewportMat(w / 2, 0, 0, 0,//col1
+        0, h / 2, 0, 0,//col2
+        0, 0, 0.5, 0,//col3
+        vx + w / 2, vy + h / 2, 0.5, 1);//col4
+    return viewportMat;
 }
 
-Matrix MaterixRotation(const Vector4 & axis, float angle)
+Matrix MatrixRotation(const Vector4 & axis, float angle)
 {
     assert(axis.w == 0);
 
@@ -237,7 +235,7 @@ Matrix MatrixScale(float x, float y, float z)
     return Matrix(mat);
 }
 
-Matrix MaterixTranslate(const Vector4 & transform)
+Matrix MatrixTranslate(const Vector4 & transform)
 {
     assert(transform.w == 0);
 

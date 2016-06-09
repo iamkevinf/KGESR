@@ -34,7 +34,7 @@ namespace KGE
         _camera = new KGECamera(viewport.z, viewport.w);
         _camera->init(Vector4(0, 0, 3, 1), Vector4(0, 0, 0, 1), Vector4(0, 1, 0, 0));
 
-        ViewportMatrix(viewport, _viewportMat);
+        _viewportMat = ViewportMatrix(viewport);
 
         _light = new KGELight();
         _light->pos = Vector4(-50 * 10, 100 * 10, 70 * 10, 1);
@@ -45,6 +45,8 @@ namespace KGE
 
         _mesh = new KGEMesh();
         _mesh->LoadFromFile("res/ASEModels/", "teaport.ASE");
+
+        _drawMode = DrawMode::DrawFull;
 
         return true;
     }
@@ -125,7 +127,30 @@ namespace KGE
         DrawLine(hdc, x3, y3, x1, y1, color);
     }
 
+    void KGEDevice::DrawTriangle_Solid(HDC hdc, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color)
+    {
+        DrawPoint(hdc, x1, y1, color);
+        DrawPoint(hdc, x2, y2, color);
+        DrawPoint(hdc, x3, y3, color);
+    }
+
     void KGEDevice::DrawTriangle(HDC hdc, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color)
+    {
+        switch (_drawMode)
+        {
+        case DrawMode::DrawEdge:
+            DrawTriangle_Edge(hdc, x1, y1, x2, y2, x3, y3, color);
+            break;
+        case DrawMode::DrawSolid:
+            DrawTriangle_Solid(hdc, x1, y1, x2, y2, x3, y3, color);
+            break;
+        case DrawMode::DrawFull:
+            DrawTriangle_Full(hdc, x1, y1, x2, y2, x3, y3, color);
+            break;
+        }
+    }
+
+    void KGEDevice::DrawTriangle_Full(HDC hdc, int x1, int y1, int x2, int y2, int x3, int y3, const Vector4 & color)
     {
         if (y1 == y2)
         {
@@ -312,11 +337,12 @@ namespace KGE
 
     void KGEDevice::transformVertexes()
     {
+        _mat = MatrixScale(0.02, 0.02, 0.02)*MatrixTranslate(Vector4(0, -20, 0, 0))*MatrixRotation(Vector4(1, 0, 0, 0), -90 * M_PI / 180);
+
         int vertexCount = (int)_transformMesh->positionList.size();
         for (int i = 0; i < vertexCount; ++i)
         {
             KGEVertex v = _transformMesh->GetVertex(i);
-            _mat = identityMatrix();
             KGEVertex tranformedV = VertexShaderProgram(_mat, _camera, _light, _transformMesh->materialList[v.materialID], v);
 
             _transformMesh->SetVertex(i, tranformedV);
@@ -346,14 +372,6 @@ namespace KGE
     {
         submitMesh();
         transformVertexes();
-
-        switch (_drawMode)
-        {
-        case DrawMode::DrawEdge:
-            break;
-        case DrawMode::DrawSolid:
-            break;
-        }
         /// TODO
         /// for test hard code
         DrawPoint(hdc, 100, 100, Vector4(1, 0, 0, 1));
@@ -373,18 +391,6 @@ namespace KGE
             v2 = _transformMesh->GetVertex(vID2);
 
             DrawTriangle(hdc, v0.pos.x, v0.pos.y, v1.pos.x, v1.pos.y, v2.pos.x, v2.pos.y, v0.color);
-
-            continue;
-            v0.pos = v0.pos + Vector4(100, 100, 0, 0);
-            v1.pos = v1.pos + Vector4(100, 100, 0, 0);
-            v2.pos = v2.pos + Vector4(100, 100, 0, 0);
-
-            //DrawTriangle_Edge(hdc, v0.pos.x, v0.pos.y, v1.pos.x, v1.pos.y, v2.pos.x, v2.pos.y, v0.color);
-
-            v0.pos = v0.pos + Vector4(100, 100, 0, 0);
-            v1.pos = v1.pos + Vector4(100, 100, 0, 0);
-            v2.pos = v2.pos + Vector4(100, 100, 0, 0);
-
         }
         /// end test hard code
     }

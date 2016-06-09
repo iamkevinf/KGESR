@@ -6,6 +6,7 @@
 #include "Vector4.h"
 #include "Vector2.h"
 #include "Matrix.h"
+#include "Range.h"
 
 const float M_PI = 3.1415927f;
 

@@ -89,8 +89,8 @@ Vector4 cross(const Vector4 & lhs, const Vector4 & rhs)
 
     return Vector4(
         lhs.y*rhs.z - lhs.z*rhs.y,
-        lhs.z*rhs.x - lhs.z*rhs.z,
-        lhs.x*rhs.y - lhs.y*rhs.z,
+        lhs.z*rhs.x - lhs.x*rhs.z,
+        lhs.x*rhs.y - lhs.y*rhs.x,
         0
         );
 }
