@@ -16,4 +16,15 @@ namespace KGE
     {
     }
 
+
+    KGEFragment::KGEFragment()
+    {
+
+    }
+
+    KGEFragment::~KGEFragment()
+    {
+
+    }
+
 }; // end of namespace KGE

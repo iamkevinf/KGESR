@@ -30,7 +30,7 @@ namespace KGE
     private:
         KGECamera();
 
-    protected:
+    public:
         float fov;
         float aspect;
         float zNear;

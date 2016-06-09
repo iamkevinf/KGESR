@@ -22,7 +22,7 @@ public:
     void at(int index, float value);
 
     Matrix operator*(const Matrix & rhs)const;
-    Matrix operator*(const Vector4 & v)const;
+    Vector4 operator*(const Vector4 & v)const;
     Matrix operator*(float k)const;
     Matrix operator+(const Matrix & rhs)const;
 
@@ -38,6 +38,11 @@ Matrix MaterixTranslate(const Vector4 & translate);
 
 Matrix PrespectiveProjectionMatrix(float fov, float aspect, float zNear, float zFar);
 Matrix OrthoprojectionMatrix(float left, float right, float bottom, float top, float zNear, float zFar);
+
+Matrix transpose(const Matrix & mat);
+Matrix inverse(const Matrix & mat);
+
+Vector4 perComponentProduct(const Vector4 & v, const Vector4 & v2);
 
 #endif // __KGE_MATERIX_H__
 

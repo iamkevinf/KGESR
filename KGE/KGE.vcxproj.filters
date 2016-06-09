@@ -78,8 +78,11 @@
     <ClInclude Include="util.h">
       <Filter>Tool</Filter>
     </ClInclude>
+    <ClInclude Include="KGELight.h">
+      <Filter>KGESR</Filter>
+    </ClInclude>
     <ClInclude Include="TextureLoader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,8 +128,11 @@
     <ClCompile Include="util.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
+    <ClCompile Include="KGELight.cpp">
+      <Filter>KGESR</Filter>
+    </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

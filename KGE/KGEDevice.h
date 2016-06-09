@@ -4,6 +4,8 @@
 #include "KGEMath.h"
 #include "KGEMesh.h"
 #include "KGECamera.h"
+#include "KGELight.h"
+#include "KGEVertex.h"
 
 namespace KGE
 {
@@ -44,7 +46,8 @@ namespace KGE
         double ZBufferRead(int x, int y);
         void ZBufferClear();
 
-        KGEVertex VertexShaderProgram(const Matrix & mat, const KGECamera * camera, const KGEMaterial * material, const KGEVertex & v);
+        KGEVertex VertexShaderProgram(const Matrix & mat, const KGECamera * camera, const KGELight * light, const KGEMaterial * material, const KGEVertex & v);
+        KGEFragment FragmentShaderProgram(const KGEVertex & interpolatedV, const KGETexture * texture);
 
     protected:
         void SoftRasterization_solid(HDC hdc);

@@ -4,6 +4,10 @@
 #include "KGEMath.h"
 #include "KGEMesh.h"
 #include "KGEVertex.h"
+#include "KGETexture.h"
+
+#include "KGEMaterial.h"
+#include "KGELight.h"
 
 namespace KGE
 {
@@ -186,6 +190,69 @@ namespace KGE
         }
     }
 
+    ////////////////////////////////////////////////////////
+    /// Shader
+    ////////////////////////////////////////////////////////
+
+    KGEVertex KGEDevice::VertexShaderProgram(const Matrix & mat, const KGECamera * camera, const KGELight * light, const KGEMaterial * material, const KGEVertex & v)
+    {
+        const Matrix & viewMat = camera->View();
+        const Matrix & projMat = camera->Projection();
+        const Matrix & normMat = transpose(inverse(mat));
+        const Vector4 & ambientML = perComponentProduct(light->ambient, material->ambient);
+        const Vector4 & diffuseML = perComponentProduct(light->diffuse, material->diffuse);
+        const Vector4 & specularML = perComponentProduct(light->specular, material->specular);
+        const float shininess = material->shininess;
+        //----transform pos
+        Vector4 pos_world = mat*v.pos;
+        //----transform norm
+        Vector4 norm_world = (normMat*v.norm);
+        norm_world.normalized();
+        //----calculate lighting
+        Vector4 posToLight = (light->pos - pos_world);
+        posToLight.normalized();
+        float normDotPosToLight = max(0.0, dot(norm_world, posToLight));
+        Vector4 diffuseColor = diffuseML*normDotPosToLight;
+        diffuseColor.w = diffuseML.w;
+        //----calculate ambient
+        Vector4 ambientColor = ambientML;
+        ambientColor.w = 1;
+        //----calculate specular
+
+        Vector4 eyePos_world = camera->eyePos;
+        Vector4 posToEye = eyePos_world - pos_world;
+        posToEye.normalized();
+
+        Vector4 halfVector = (posToLight + posToEye)*0.5;
+        float normDotHalfVector = dot(norm_world, halfVector);
+        float pf = normDotHalfVector == 0 ? 0 : pow(normDotHalfVector, shininess);
+
+        Vector4 specularColor = specularML*pf;
+        specularColor.w = 1;
+
+        //----calculate mainColor
+        Vector4 mainColor = diffuseColor + ambientColor;
+        Vector4 colorAdd = specularColor;
+
+        //----gl_Position
+        Vector4 gl_Position = projMat*viewMat*pos_world;
+        //----make vsOutput
+        KGEVertex transformedV = v;//copy v
+        transformedV.pos = gl_Position;
+        transformedV.color = mainColor;
+        transformedV.colorAdd = colorAdd;
+        return transformedV;
+    }
+
+    KGEFragment KGEDevice::FragmentShaderProgram(const KGEVertex & interpolatedV, const KGETexture * texture)
+    {
+        KGEFragment frag;
+        frag.pos = interpolatedV.pos;
+        frag.color = perComponentProduct(interpolatedV.color, texture->GetColor(interpolatedV.uv));
+        frag.color = frag.color + interpolatedV.colorAdd;//must add after mul textureColor
+        return frag;
+    }
+    
     ////////////////////////////////////////////////////////
     /// zBuffer
     ////////////////////////////////////////////////////////

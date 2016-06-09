@@ -14,7 +14,6 @@ namespace KGE
 
         void init(const Vector4 & _ambient, const Vector4 & _diffuse, const Vector4 & specular, float _shniness);
 
-    private:
         Vector4 ambient;
         Vector4 diffuse;
         Vector4 specular;
