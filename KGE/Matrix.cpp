@@ -34,7 +34,7 @@ Matrix::Matrix(const float array[16])
 
 Matrix::~Matrix()
 {
-    delete[] _array;
+    //delete[] _array;
 }
 
 float Matrix::at(int index)const
@@ -173,6 +173,16 @@ Matrix ViewMaterix(const Vector4 & eyePos, const Vector4 & center, const Vector4
     };
 
     return Matrix(m);
+}
+
+void ViewportMatrix(const Vector4 & viewport, Matrix & out)
+{
+    out = Matrix(
+        viewport.z / 2, 0, 0, 0,
+        0, viewport.w / 2, 0, 0,
+        0, 0, 0.5f, 0,
+        viewport.x+viewport.z/2, viewport.y+viewport.w/2, 0.5f, 1
+        );
 }
 
 Matrix MaterixRotation(const Vector4 & axis, float angle)

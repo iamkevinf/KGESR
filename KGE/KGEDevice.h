@@ -49,6 +49,10 @@ namespace KGE
         KGEVertex VertexShaderProgram(const Matrix & mat, const KGECamera * camera, const KGELight * light, const KGEMaterial * material, const KGEVertex & v);
         KGEFragment FragmentShaderProgram(const KGEVertex & interpolatedV, const KGETexture * texture);
 
+    private:
+        void submitMesh();
+        void transformVertexes();
+
     protected:
         void SoftRasterization_solid(HDC hdc);
         void SoftRasterization_edge(HDC hdc);
@@ -60,7 +64,14 @@ namespace KGE
         bool _isInited;
 
         KGEMesh * _mesh;
+        KGEMesh * _transformMesh;
         KGECamera * _camera;
+        KGELight * _light;
+
+        DrawMode _drawMode;
+
+        Matrix _mat;
+        Matrix _viewportMat;
     };
 
 }; // end of namespace KGE

@@ -32,6 +32,7 @@ private:
 
 Matrix ViewMaterixInverse(const Vector4 & eyePos, const Vector4 & center, const Vector4 & up);
 Matrix ViewMaterix(const Vector4 & eyePos, const Vector4 & center, const Vector4 & up);
+void ViewportMatrix(const Vector4 & viewport, Matrix & out);
 Matrix MaterixRotation(const Vector4 & axis, float angle);
 Matrix MatrixScale(float x, float y, float z);
 Matrix MaterixTranslate(const Vector4 & translate);

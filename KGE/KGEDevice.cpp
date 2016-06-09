@@ -34,6 +34,12 @@ namespace KGE
         _camera = new KGECamera(viewport.z, viewport.w);
         _camera->init(Vector4(1, 0, 2, 1), Vector4(0, 0, 0, 1), Vector4(0, 1, 0, 0));
 
+        ViewportMatrix(viewport, _viewportMat);
+
+        _light = new KGELight();
+        _light->pos = Vector4(-50 * 10, 100 * 10, 70 * 10, 1);
+        _light->ambient = Vector4(1, 1, 1, 1);
+
         _zBuffer = new double[(int)viewport.z * (int)viewport.w];
         ZBufferClear();
 
@@ -292,6 +298,33 @@ namespace KGE
     /// Rasterization
     ////////////////////////////////////////////////////////
 
+    void KGEDevice::submitMesh()
+    {
+        _transformMesh = _mesh;
+    }
+
+    void KGEDevice::transformVertexes()
+    {
+        int vertexCount = (int)_transformMesh->positionList.size();
+        for (int i = 0; i < vertexCount; ++i)
+        {
+            KGEVertex v = _transformMesh->GetVertex(i);
+            _mat = identityMatrix();
+            KGEVertex tranformedV = VertexShaderProgram(_mat, _camera, _light, _transformMesh->materialList[v.materialID], v);
+
+            _transformMesh->SetVertex(i, tranformedV);
+        }
+
+
+        vertexCount = _transformMesh->positionList.size();
+
+        for (int i = 0; i < vertexCount; ++i)
+        {
+            _transformMesh->positionList[i].persDiv();
+            _transformMesh->positionList[i] = _viewportMat * _transformMesh->positionList[i];
+        }
+    }
+
     void KGEDevice::Clear(HDC hdc, const Vector4 & viewport, DWORD color)
     {
         ::BitBlt(hdc, (int)viewport.x, (int)viewport.y, (int)viewport.z, (int)viewport.w, NULL, NULL, NULL, color);
@@ -304,13 +337,22 @@ namespace KGE
 
     void KGEDevice::SoftRasterization(HDC hdc)
     {
+        submitMesh();
+
+        switch (_drawMode)
+        {
+        case DrawMode::DrawEdge:
+            break;
+        case DrawMode::DrawSolid:
+            break;
+        }
         /// TODO
         /// for test hard code
         DrawPoint(hdc, 100, 100, Vector4(1, 0, 0, 1));
         DrawLine(hdc, 200, 247, 300, 405, Vector4(1, 0, 0, 1));
         DrawTriangle(hdc, 500, 200, 400, 300, 700, 400, Vector4(0, 1, 0, 1));
 
-        int nIDtri = (int)_mesh->triList.size();
+        int nIDtri = (int)_transformMesh->triList.size();
         for (int i = 0; i<nIDtri; i++){
             const KGETriangle & IDtri = _mesh->triList[i];
             const int vID0 = IDtri.vID(0);
@@ -318,11 +360,11 @@ namespace KGE
             const int vID2 = IDtri.vID(2);
             if (vID0 == -1)continue;
             KGEVertex v0, v1, v2;
-            v0 = _mesh->GetVertex(vID0);
-            v1 = _mesh->GetVertex(vID1);
-            v2 = _mesh->GetVertex(vID2);
+            v0 = _transformMesh->GetVertex(vID0);
+            v1 = _transformMesh->GetVertex(vID1);
+            v2 = _transformMesh->GetVertex(vID2);
 
-            DrawTriangle(hdc, 100 + v0.pos.x, 100 + v0.pos.y, 100 + v1.pos.x, 100 + v1.pos.y, 100 + v2.pos.x, 100 + v2.pos.y, v0.color);
+            DrawTriangle(hdc, v0.pos.x, v0.pos.y, v1.pos.x, v1.pos.y, v2.pos.x, v2.pos.y, v0.color);
         }
         /// end test hard code
     }
